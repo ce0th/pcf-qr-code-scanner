@@ -13,7 +13,13 @@ import {
   makeStyles,
 } from "@fluentui/react-components";
 
-
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center", // Default value, can be overridden by props
+  },
+});
 
 export type QrProps = {
   populateField: (value: string) => void;
@@ -26,13 +32,6 @@ export const QrCodeScanner: React.FunctionComponent<QrProps> = (
 ) => {
   const { populateField, position, label } = props;
   const [open, setOpen] = React.useState(false);
-  const useStyles = makeStyles({
-    root: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: position,
-    },
-  });
   const styles = useStyles();
 
   return (
@@ -41,7 +40,7 @@ export const QrCodeScanner: React.FunctionComponent<QrProps> = (
       open={open}
       onOpenChange={(event, data) => setOpen(data.open)}
     >
-      <div className={styles.root}>
+      <div className={styles.root} style={{ justifyContent: position }}>
         <DialogTrigger disableButtonEnhancement>
           <Button shape="rounded" appearance="primary" icon={<QrCodeRegular />}>
             {label}
